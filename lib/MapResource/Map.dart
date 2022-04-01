@@ -19,16 +19,14 @@ class _Map extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
-    return
-       Scaffold(
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
-          ),
+    return Scaffold(
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 11.0,
         ),
-      );
-
+      ),
+    );
   }
 }
