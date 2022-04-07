@@ -7,10 +7,11 @@ import 'package:transport/analysis/analysis_button.dart';
 
 class analysis_page extends StatelessWidget {
   late List<SalesData> _chartData = getChartData();
-
+  late List<GDPData> _chartData_GDP = getChartData_GDP();
   @override
   void initState() {
     _chartData = getChartData();
+    _chartData_GDP = getChartData_GDP();
   }
 
   Widget build(BuildContext context) {
@@ -21,10 +22,13 @@ class analysis_page extends StatelessWidget {
         body: SafeArea(
             child: Column(children: [
           Container(
-            alignment: Alignment.centerRight,
-            margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(left: 10, right: 10, top: 10),
             constraints: BoxConstraints(
-                maxWidth: 400, maxHeight: 40, minWidth: 200, minHeight: 40),
+                maxWidth: 250,
+                maxHeight: MediaQuery.of(context).size.height * 0.05,
+                minWidth: 200,
+                minHeight: 10),
             child: Row(
               children: <Widget>[
                 Text("請選擇:"),
@@ -44,7 +48,10 @@ class analysis_page extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(left: 10, right: 10, top: 20),
             constraints: BoxConstraints(
-                maxWidth: 400, maxHeight: 300, minWidth: 200, minHeight: 250),
+                maxWidth: 400,
+                maxHeight: MediaQuery.of(context).size.height * 0.35,
+                minWidth: 200,
+                minHeight: 250),
             decoration: new BoxDecoration(
               //背景
 
@@ -87,19 +94,97 @@ class analysis_page extends StatelessWidget {
             ),
           ),
           Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.only(left: 10, right: 10, top: 20),
-              constraints: BoxConstraints(
-                  maxWidth: 400, maxHeight: 300, minWidth: 200, minHeight: 250),
-              decoration: new BoxDecoration(
-                //背景
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+                  constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.43,
+                      maxHeight: MediaQuery.of(context).size.height * 0.38,
+                      minWidth: 100,
+                      minHeight: 250),
+                  decoration: new BoxDecoration(
+                    //背景
 
-                color: Color.fromRGBO(255, 255, 255, 25),
-                //设置四周圆角 角度
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                border: new Border.all(
-                    width: 1, color: Color.fromARGB(255, 104, 103, 103)),
-              )),
+                    color: Color.fromRGBO(255, 255, 255, 25),
+                    //设置四周圆角 角度
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    border: new Border.all(
+                        width: 1, color: Color.fromARGB(255, 104, 103, 103)),
+                  ),
+                  child: SfCircularChart(
+                      title: ChartTitle(
+                          text: '肇事交通工具件數',
+                          textStyle: TextStyle(
+                            fontSize: 14,
+                          )),
+                      legend: Legend(
+                          isVisible: true,
+                          overflowMode: LegendItemOverflowMode.wrap,
+                          textStyle: TextStyle(
+                            fontSize: 12,
+                          )),
+                      series: <CircularSeries>[
+                        DoughnutSeries<GDPData, String>(
+                          dataSource: _chartData_GDP,
+                          xValueMapper: (GDPData data, _) => data.continent,
+                          yValueMapper: (GDPData data, _) => data.gdp,
+                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                        )
+                      ]),
+                ),
+                Column(children: [
+                  Container(
+                      margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.43,
+                        maxHeight: MediaQuery.of(context).size.height * 0.16,
+                        minWidth: 100,
+                      ),
+                      decoration: new BoxDecoration(
+                        //背景
+
+                        color: Color.fromRGBO(255, 255, 255, 25),
+                        //设置四周圆角 角度
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        border: new Border.all(
+                            width: 1,
+                            color: Color.fromARGB(255, 104, 103, 103)),
+                      ),
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: Text('台中交通死亡人數:283 '))),
+                  Container(
+                      margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.43,
+                        maxHeight: MediaQuery.of(context).size.height * 0.16,
+                        minWidth: MediaQuery.of(context).size.width * 0.43,
+                        minHeight: MediaQuery.of(context).size.height * 0.16,
+                      ),
+                      decoration: new BoxDecoration(
+                        //背景
+                        color: Color.fromRGBO(255, 255, 255, 25),
+                        //设置四周圆角 角度
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        border: new Border.all(
+                            width: 1,
+                            color: Color.fromARGB(255, 104, 103, 103)),
+                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                alignment: Alignment.center,
+                                child: Text('與前年相比:')),
+                            Container(
+                                alignment: Alignment.center,
+                                child: Text('減少43人(13.2%)'))
+                          ]))
+                ])
+              ],
+            ),
+          )
         ])));
   }
 
@@ -120,9 +205,23 @@ class analysis_page extends StatelessWidget {
     ];
     return chartData;
   }
+
+  List<GDPData> getChartData_GDP() {
+    final List<GDPData> chartData = [
+      GDPData("行人", 1600),
+      GDPData("大型車", 2900),
+      GDPData("自小客車", 24800),
+      GDPData("機車", 34390),
+    ];
+    return chartData;
+  }
 }
 
-mixin column {}
+class GDPData {
+  GDPData(this.continent, this.gdp);
+  final String continent;
+  final int gdp;
+}
 
 class SalesData {
   SalesData(this.year, this.sales);
