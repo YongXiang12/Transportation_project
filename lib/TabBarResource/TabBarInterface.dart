@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' ;
+import 'package:transport/SearchResource/Searchpage.dart';
 import 'package:transport/TabBarResource/Mainpage_tabbar.dart';
 import 'package:transport/TabBarResource/Search_tabbar.dart';
+
 class Tabbar_interface extends StatefulWidget implements PreferredSizeWidget{
 
   int pageType = 0 ;

@@ -9,8 +9,18 @@ class Main_page_tabbar extends StatefulWidget{
 
 }
 
+class Item{
+  const Item(this.icon);
+  final Icon icon;
+}
+
 class _Main_page_tabbar extends State<Main_page_tabbar>{
   String Weather = "晴天";
+  List icon = [
+    const Item(Icon(Icons.wb_sunny_outlined,color:  const Color(0xFF167F67),)),
+    const Item(Icon(Icons.wb_cloudy_outlined,color:  const Color(0xFF167F67),)),
+    const Item(Icon(Icons.wb_sunny_outlined,color:  const Color(0xFF167F67),)),
+  ];
 
   @override
   void initState() {
@@ -26,12 +36,6 @@ class _Main_page_tabbar extends State<Main_page_tabbar>{
     FocusNode _KeyboardFocusNode = FocusNode();
 
     return AppBar(
-        /*
-        leading: IconButton(icon:Icon(Icons.menu,size:40),
-          onPressed: () {
-          //todo
-          },
-        ),*/
 
         // control the padding between leading and title
         titleSpacing: 10,
@@ -86,10 +90,8 @@ class _Main_page_tabbar extends State<Main_page_tabbar>{
 
 
 
-                value:
-
-                  Weather,
-                  items: <String>['晴天', '雨天', '多雲'].map<DropdownMenuItem<String>>((String value) {
+                value: Weather,
+                items: <String>['晴天', '雨天', '多雲'].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
 
                       value: value,
