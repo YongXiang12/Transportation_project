@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 var newList ;
 
 class StorePage extends StatefulWidget{
+  int User_id = -1 ;
+  StorePage({Key? key , this.User_id =-1}) : super(key: key);
 
   @override
   _StorePage createState() => _StorePage();
@@ -20,7 +22,8 @@ class _StorePage extends State<StorePage>{
   // localhost : 10.0.2.2:8080
 
   Future<List> getData() async{
-    var url = 'http://140.134.26.31:8080/PlaceData/';
+    print("++++++++++++++++++"+widget.User_id.toString());
+    var url = 'http://140.134.26.31:8080/PlaceData/'+widget.User_id.toString();
     var response = await http.get(Uri.parse(url));
     var newData ;
 
@@ -97,7 +100,7 @@ class _ItemList extends State<ItemList>{
       });
 
       void deleteData(String id) async {
-        var url = 'http://140.134.26.31:8080/PlaceData/' + id;
+        var url = 'http://140.134.26.31:8080/PlaceData/delete/'+id;
         var response = await http.delete(Uri.parse(url));
 
         if (response.statusCode == 200) {
@@ -125,6 +128,7 @@ class _ItemList extends State<ItemList>{
             trailing: IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
+                print(list[index]['id']);
                 deleteData(list[index]['id'].toString());
               },
             ),

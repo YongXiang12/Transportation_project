@@ -7,8 +7,9 @@ import 'package:transport/TabBarResource/TabBarInterface.dart';
 import 'package:transport/SearchResource/RecentSearchPage.dart';
 
 class Searchpage extends StatefulWidget{
+  int User_id = -1 ;
 
-  const Searchpage({Key? key}) : super(key: key);
+  Searchpage({Key? key , this.User_id =-1}) : super(key: key);
 
   @override
   _Searchpage createState() => _Searchpage() ;
@@ -30,7 +31,7 @@ class _Searchpage extends State<Searchpage>{
             length: 2,
             child: Scaffold(
                 appBar: tab,
-                body: TabBarView(children: <Widget>[GoogleSearch(),StorePage()])
+                body: TabBarView(children: <Widget>[GoogleSearch(),StorePage(User_id : widget.User_id)])
             )
         ),
 

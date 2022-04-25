@@ -23,7 +23,6 @@ class _GoogleSearch extends State<GoogleSearch>{
     final GoogleMapChangeNotify Notify = Provider.of<GoogleMapChangeNotify>(context);
 
     //Notify.searchPlace(str);
-    print("First hello world "+Notify.result.length.toString());
     return Scaffold(
 
       body: ListView(

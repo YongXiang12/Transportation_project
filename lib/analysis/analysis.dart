@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:transport/TabBarResource/TabBarInterface.dart';
-import 'package:transport/SearchResource/Search_listview.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:transport/analysis/analysis_button.dart';
 

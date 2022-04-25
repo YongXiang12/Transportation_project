@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:transport/TabBarResource/Mainpage_tabbar.dart';
 import 'package:transport/MapResource/Map.dart';
 import 'package:transport/TabBarResource/TabBarInterface.dart';
@@ -23,14 +24,27 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Myhome extends StatelessWidget {
+class Myhome extends StatefulWidget{
+  @override
+  _Myhome createState() => _Myhome();
+}
+
+
+
+class _Myhome extends State<Myhome> {
+  int id = -1 ;
+  var list ;
+  String email ="";
+  bool isLogin = false ;
+  String status ="登入";
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return
+      DefaultTabController(
         length: 3,
         child: Scaffold(
           body: Map(),
-          appBar: Tabbar_interface(pageType: 0),
+          appBar: Tabbar_interface(pageType: 0 , User_id : id,),
           drawer: Drawer(
             child: ListView(
               children: [
@@ -54,14 +68,14 @@ class Myhome extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "User_Name",
+                              email,
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              "Email_Adress",
+                              "",
                               style: TextStyle(
                                 fontSize: 20,
                               ),
@@ -101,21 +115,17 @@ class Myhome extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: const Text(
-                    '登出',
+                  title:  Text(
+                    status,
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   leading: Icon(Icons.wrap_text, size: 30),
-                  onTap: () {
-                    //Navigator.pop(context);
-                    Navigator.push(context,
+                  onTap: () async {
+                     list = await Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginPage()));
-
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
+                    update();
                   },
                 ),
                 ListTile(
@@ -160,5 +170,21 @@ class Myhome extends StatelessWidget {
             ),
           ),
         ));
+
+
+  }
+   void update(){
+    setState(() {
+
+        print("hello");
+        print(list);
+        email = list[1];
+        id = list[0];
+        isLogin = !isLogin;
+        if(isLogin){
+          status ="登出";
+        }
+
+    });
   }
 }

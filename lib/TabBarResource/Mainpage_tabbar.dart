@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:transport/SearchResource/Searchpage.dart';
 
 class Main_page_tabbar extends StatefulWidget{
+  int User_id = -1;
+  Main_page_tabbar({Key? key, this.User_id =-1}) : super(key: key);
+
 
   @override
   _Main_page_tabbar createState() => _Main_page_tabbar();
@@ -15,6 +18,7 @@ class Item{
 }
 
 class _Main_page_tabbar extends State<Main_page_tabbar>{
+  int User_id = -1;
   String Weather = "晴天";
   List icon = [
     const Item(Icon(Icons.wb_sunny_outlined,color:  const Color(0xFF167F67),)),
@@ -72,7 +76,7 @@ class _Main_page_tabbar extends State<Main_page_tabbar>{
             ),
             onTap: (){
               _KeyboardFocusNode.unfocus();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Searchpage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Searchpage(User_id : widget.User_id)));
             },
           ),
         ),
