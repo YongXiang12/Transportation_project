@@ -3,14 +3,30 @@ import 'package:flutter/widgets.dart';
 import 'package:transport/TabBarResource/TabBarInterface.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:transport/analysis/analysis_button.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 class analysis_page extends StatelessWidget {
-  late List<SalesData> _chartData = getChartData();
+  List<SalesData> chartData = [];
   late List<GDPData> _chartData_GDP = getChartData_GDP();
   @override
+  Future loadSalesData() async {
+    chartData = [];
+    final String jsonString = await getJsonFromAssets();
+    final dynamic jsonResponse = json.decode(jsonString);
+    for (Map<String, dynamic> i in jsonResponse) {
+      chartData.add(SalesData.fromJson(i));
+    }
+  }
+
+  Future<String> getJsonFromAssets() async {
+    return await rootBundle.loadString('assets/data.json');
+  }
+
   void initState() {
-    _chartData = getChartData();
+    //_chartData = getChartData();
     _chartData_GDP = getChartData_GDP();
+    loadSalesData();
   }
 
   Widget build(BuildContext context) {
@@ -26,7 +42,7 @@ class analysis_page extends StatelessWidget {
             constraints: BoxConstraints(
                 maxWidth: 250,
                 maxHeight: MediaQuery.of(context).size.height * 0.05,
-                minWidth: 200,
+                minWidth: 100,
                 minHeight: 10),
             child: Row(
               children: <Widget>[
@@ -34,33 +50,89 @@ class analysis_page extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerRight,
                   child: MyStatefulWidget(),
-                  margin: EdgeInsets.only(left: 10, right: 10),
+                  margin: EdgeInsets.only(left: 10, right: 5),
                 ),
                 Container(
                   alignment: Alignment.centerRight,
                   child: MyStatefulWidget1(),
-                  margin: EdgeInsets.only(left: 10, right: 10),
+                  margin: EdgeInsets.only(left: 10, right: 5),
                 ),
               ],
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 10, right: 10, top: 20),
-            constraints: BoxConstraints(
-                maxWidth: 400,
-                maxHeight: MediaQuery.of(context).size.height * 0.35,
-                minWidth: 200,
-                minHeight: 250),
-            decoration: new BoxDecoration(
-              //背景
+              margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+              constraints: BoxConstraints(
+                  maxWidth: 400,
+                  maxHeight: MediaQuery.of(context).size.height * 0.35,
+                  minWidth: 200,
+                  minHeight: 250),
+              decoration: new BoxDecoration(
+                //背景
 
-              color: Color.fromRGBO(255, 255, 255, 25),
-              //设置四周圆角 角度
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              border: new Border.all(
-                  width: 1, color: Color.fromARGB(255, 104, 103, 103)),
-            ),
-            child: SfCartesianChart(
+                color: Color.fromRGBO(255, 255, 255, 25),
+                //设置四周圆角 角度
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                border: new Border.all(
+                    width: 1, color: Color.fromARGB(255, 104, 103, 103)),
+              ),
+              child: FutureBuilder(
+                  future: getJsonFromAssets(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          primaryYAxis: NumericAxis(minimum: 10, maximum: 50),
+                          // Chart title
+                          title: ChartTitle(
+                              text: '台中110年交通事故全部死亡人數',
+                              borderWidth: 2,
+                              // Aligns the chart title to left
+                              alignment: ChartAlignment.center,
+                              textStyle: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontFamily: 'Roboto',
+                                fontStyle: FontStyle.italic,
+                                fontSize: 14,
+                              )),
+                          series: <ChartSeries<SalesData, String>>[
+                            LineSeries<SalesData, String>(
+                              dataSource: chartData,
+                              xValueMapper: (SalesData sales, _) => sales.date,
+                              yValueMapper: (SalesData sales, _) => sales.value,
+                            )
+                          ]);
+                    } else {
+                      return Card(
+                        elevation: 5.0,
+                        child: Container(
+                          height: 100,
+                          width: 400,
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text('Retriving JSON data...',
+                                    style: TextStyle(fontSize: 20.0)),
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  child: CircularProgressIndicator(
+                                    semanticsLabel: 'Retriving JSON data',
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.blueAccent),
+                                    backgroundColor: Colors.grey[300],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  })
+
+              /*SfCartesianChart(
               title: ChartTitle(
                   text: '台中110年交通事故全部死亡人數',
                   borderWidth: 2,
@@ -90,8 +162,8 @@ class analysis_page extends StatelessWidget {
                         shape: DataMarkerType.diamond),
                     dataLabelSettings: DataLabelSettings(isVisible: true)),
               ],
-            ),
-          ),
+            ),*/
+              ),
           Container(
             child: Row(
               children: <Widget>[
@@ -99,7 +171,7 @@ class analysis_page extends StatelessWidget {
                   margin: EdgeInsets.only(left: 10, right: 10, top: 20),
                   constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width * 0.43,
-                      maxHeight: MediaQuery.of(context).size.height * 0.38,
+                      maxHeight: MediaQuery.of(context).size.height * 0.40,
                       minWidth: 100,
                       minHeight: 250),
                   decoration: new BoxDecoration(
@@ -187,7 +259,7 @@ class analysis_page extends StatelessWidget {
         ])));
   }
 
-  List<SalesData> getChartData() {
+  /*List<SalesData> getChartData() {
     final List<SalesData> chartData = [
       SalesData(1, 35),
       SalesData(2, 28),
@@ -203,7 +275,7 @@ class analysis_page extends StatelessWidget {
       SalesData(12, 34)
     ];
     return chartData;
-  }
+  }*/
 
   List<GDPData> getChartData_GDP() {
     final List<GDPData> chartData = [
@@ -223,7 +295,15 @@ class GDPData {
 }
 
 class SalesData {
-  SalesData(this.year, this.sales);
-  final double year;
-  final double sales;
+  SalesData(this.date, this.value);
+
+  final String date;
+  final int value;
+
+  factory SalesData.fromJson(Map<String, dynamic> parsedJson) {
+    return SalesData(
+      parsedJson['date'].toString(),
+      parsedJson['value'],
+    );
+  }
 }
