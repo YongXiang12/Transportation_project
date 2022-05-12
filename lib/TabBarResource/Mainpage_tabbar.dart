@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transport/SearchResource/Searchpage.dart';
+import 'package:provider/provider.dart';
+import 'package:transport/main.dart';
 
 class Main_page_tabbar extends StatefulWidget {
   int User_id = -1;
@@ -52,7 +54,10 @@ class _Main_page_tabbar extends State<Main_page_tabbar> {
             Icons.menu,
             color: Colors.white,
           ),
-          onPressed: () => print('按下選單'),
+          onPressed: () {
+            Provider.of<MyCounter>(context, listen: false).contorldrawer();
+            print('zvxbdjwnjbjdngs');
+          },
         ),
         // use Container to adjust the textfield height and width
         title: Container(
