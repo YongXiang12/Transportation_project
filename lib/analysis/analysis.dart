@@ -80,6 +80,8 @@ class analysis_page extends StatelessWidget {
                   future: getJsonFromAssets(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      print("snapshot: $snapshot");
+                      print(chartData[0]);
                       return SfCartesianChart(
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: NumericAxis(minimum: 10, maximum: 50),

@@ -7,6 +7,8 @@ import 'package:transport/analysis/analysis.dart';
 import 'package:transport/login/logins.dart';
 import 'dart:math';
 
+import 'package:transport/setting/setting.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
@@ -126,10 +128,10 @@ class _Myhome extends State<Myhome> {
                     ),
                     leading: Icon(Icons.add, size: 30, color: Colors.white),
                     onTap: () {
-                      // Update the state of the app
-                      // ...
-                      // Then close the drawer
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => setting_page()));
                     },
                   ),
                   ListTile(
