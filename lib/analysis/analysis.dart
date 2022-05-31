@@ -11,11 +11,14 @@ class analysis_page extends StatelessWidget {
   late List<GDPData> _chartData_GDP = getChartData_GDP();
   @override
   Future loadSalesData() async {
-    chartData = [];
+    int k = 0;
+    //chartData = [];
     final String jsonString = await getJsonFromAssets();
     final dynamic jsonResponse = json.decode(jsonString);
     for (Map<String, dynamic> i in jsonResponse) {
       chartData.add(SalesData.fromJson(i));
+      print("有執行");
+      print(chartData[k++].date);
     }
   }
 
@@ -23,13 +26,15 @@ class analysis_page extends StatelessWidget {
     return await rootBundle.loadString('assets/data.json');
   }
 
-  void initState() {
+  /*void initState() {
     //_chartData = getChartData();
     _chartData_GDP = getChartData_GDP();
     loadSalesData();
-  }
+    print("xxxxxxxxxxxinsert");
+  }*/
 
   Widget build(BuildContext context) {
+    loadSalesData();
     return Scaffold(
         appBar: AppBar(
           title: Text("analysis"),
@@ -81,7 +86,11 @@ class analysis_page extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       print("snapshot: $snapshot");
-                      print(chartData[0]);
+                      //loadSalesData();
+                      print("000");
+                      print(chartData);
+                      print("000");
+                      print("111");
                       return SfCartesianChart(
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: NumericAxis(minimum: 10, maximum: 50),
