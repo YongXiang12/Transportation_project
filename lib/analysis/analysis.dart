@@ -108,10 +108,18 @@ class analysis_page extends StatelessWidget {
                               )),
                           series: <ChartSeries<SalesData, String>>[
                             LineSeries<SalesData, String>(
-                              dataSource: chartData,
-                              xValueMapper: (SalesData sales, _) => sales.date,
-                              yValueMapper: (SalesData sales, _) => sales.value,
-                            )
+                                enableTooltip: true,
+                                dataSource: chartData,
+                                xValueMapper: (SalesData sales, _) =>
+                                    sales.date,
+                                yValueMapper: (SalesData sales, _) =>
+                                    sales.value,
+                                markerSettings: MarkerSettings(
+                                    isVisible: true,
+                                    // Marker shape is set to diamond
+                                    shape: DataMarkerType.diamond),
+                                dataLabelSettings:
+                                    DataLabelSettings(isVisible: true))
                           ]);
                     } else {
                       return Card(
