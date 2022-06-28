@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
 
 import 'AccountPasswordIdentity.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+
+import '/login/user.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email'
+    ]
+);
 
 class LoginPage extends StatelessWidget {
 
+
+
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-  /*
-  final btn6 = Expanded(
-    child: FloatingActionButton(
-      onPressed: () => null,
-      child: Container(
-        child: Icon(Icons.phone_android),
-      ),
-      elevation: 5,
-      shape: CircleBorder(),
-    ),
-  );
-  final btn7 = Expanded(
-      child: FloatingActionButton(
-    child: Icon(Icons.mail),
-    elevation: 5,
-    shape: CircleBorder(),
-    onPressed: () => null,
-  ));
-  final btn8 = Expanded(
-      child: FloatingActionButton(
-    child: Icon(Icons.phone_android),
-    elevation: 5,
-    shape: CircleBorder(),
-    onPressed: () => null,
-  ));
-*/
+
+
+
+  GoogleSignInAccount? _currentUser;
+
+  bool loggedIn = false;
+
+  AccessToken? _accessToken;
+  UserModel? currentUser;
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,181 +114,242 @@ class LoginPage extends StatelessWidget {
               ],
               mainAxisAlignment: MainAxisAlignment.center,
             ),
-            /*
-            Row(
-              children: <Widget>[
-                Container(
-                  child: btn6,
-                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: btn7,
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: btn8,
-                )
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
-            */
+
+            _buildWidget(),
+            _buildWidgetFb()
+
           ],
         ),
       ),
     );
     // ignore: dead_code
   }
-}
 
 
-/*
 
-class Myhome extends StatefulWidget{
-  @override
-  _Myhome createState() => _Myhome();
-}
 
-class _Myhome extends State<Myhome> {
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          body: Map(),
-          appBar: Tabbar_interface(pageType: 0),
-          drawer: Drawer(
-            child: ListView(
-              children: [
-                DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(right: 20),
-                          child: Icon(
-                            Icons.account_box,
-                            size: 60,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              email,
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "Email_Adress",
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-                ListTile(
-                  title: const Text(
-                    '導航',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  leading: Icon(Icons.airplanemode_active_outlined, size: 30),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text(
-                    '儲存地點',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  leading: Icon(Icons.archive, size: 30),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    // Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text(
-                    '登出',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  leading: Icon(Icons.wrap_text, size: 30),
-                  onTap: () async {
-                    String email = await Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                    //update(email);
-                  },
-                ),
-                ListTile(
-                  title: const Text(
-                    '設定',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  leading: Icon(
-                    Icons.add,
-                    size: 30,
-                  ),
-                  onTap: () {
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text(
-                    '分析',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  leading: Icon(Icons.wrap_text, size: 30),
-                  onTap: () {
-                    //Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => analysis_page()));
 
-                    // Update the state of the app
-                    // ...
-                    // Then close the drawer
-                  },
-                ),
-              ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  facebookLogin() async {
+    print("FaceBook");
+    final result =
+    await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
+    if (result.status == LoginStatus.success) {
+      final userData = await FacebookAuth.i.getUserData();
+      print(userData);
+    }
+  }
+
+  Widget _buildWidget(){
+    GoogleSignInAccount? user = _currentUser;
+    if(user != null){
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(2, 12, 2, 12),
+        child: Column(
+          children: [
+            ListTile(
+              leading: GoogleUserCircleAvatar(identity: user),
+              title:  Text(user.displayName ?? '', style: TextStyle(fontSize: 22),),
+              subtitle: Text(user.email, style: TextStyle(fontSize: 22)),
             ),
-          ),
-        ));
+            const SizedBox(height: 20,),
+            const Text(
+              '登入成功',
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 10,),
+            ElevatedButton(
+                onPressed: signOutGoogle,
+                child: const Text('登出')
+            )
+          ],
+        ),
+      );
+    }else{
+      return Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 20,),
+            const Text(
+              ' ',
+              style: TextStyle(fontSize: 30),
+            ),
+            const Text(
+              '您還沒有登入',
+              style: TextStyle(fontSize: 30),
+            ),
+
+            const Text(
+              ' ',
+              style: TextStyle(fontSize: 60),
+            ),
+
+            const SizedBox(height: 10,),
+            ElevatedButton(
+                onPressed: signInGoogle,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Google 登入', style: TextStyle(fontSize: 20)),
+                )
+            ),
+            const Text(
+              ' ',
+              style: TextStyle(fontSize: 30),
+            ),
+
+            ElevatedButton(
+                onPressed: facebookLogin,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text('Facebook 登入', style: TextStyle(fontSize: 20)),
+                )
+            ),
+
+
+            const Text(
+              ' ',
+              style: TextStyle(fontSize: 30),
+            ),
+
+
+
+            SignInWithAppleButton(
+              onPressed: () async {
+
+                final credential = await SignInWithApple.getAppleIDCredential(
+                    scopes: [
+                      AppleIDAuthorizationScopes.email,
+                      AppleIDAuthorizationScopes.fullName,
+                    ],
+                    webAuthenticationOptions: WebAuthenticationOptions(
+                        clientId: 'jp.oyster.mobile.service',
+                        redirectUri: Uri.parse('https://um9kvdfvh6.execute-api.ap-northeast-1.amazonaws.com/callbacks/sign_in_with_apple'))
+                );
+
+                final Map<String, dynamic> decodedIdentityToken =
+                JwtDecoder.decode(credential.identityToken ?? '');
+                String id= decodedIdentityToken['sub'] as String? ?? '';
+                print("id $id");
+
+
+
+
+                // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+                // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+              },
+            ),
+
+
+          ],
+        ),
+      );
+    }
+  }
+  Widget _buildWidgetFb() {
+    UserModel? user = currentUser;
+    if (user != null) {
+      return Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                radius: user.pictureModel!.width! / 6,
+                backgroundImage: NetworkImage(user.pictureModel!.url!),
+              ),
+              title: Text(user.name!),
+              subtitle: Text(user.email!),
+            ),
+            const SizedBox(height: 20,),
+            const Text(
+              '登入成功',
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 10,),
+            ElevatedButton(
+                onPressed: signOutFB,
+                child: const Text('登出')
+            )
+          ],
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 20,),
+            const Text(
+              ' ' ,
+              style: TextStyle(fontSize: 20),
+            ),
+
+          ],
+        ),
+      );
+    }
   }
 
+  Future<void> signInFB() async {
+    final LoginResult result = await FacebookAuth.i.login();
 
-  void update(String e){
-    setState((){
-      email = e ;
-    });
+    if(result.status == LoginStatus.success){
+      _accessToken = result.accessToken;
+
+      final data = await FacebookAuth.i.getUserData();
+      UserModel model = UserModel.fromJson(data);
+
+      currentUser = model;
+
+    }
+  }
+
+  Future<void> signOutFB() async {
+    await FacebookAuth.i.logOut();
+    currentUser = null;
+    _accessToken = null;
+
   }
 }
- */
+void signOutGoogle(){
+  _googleSignIn.disconnect();
+}
+
+Future<void> signInGoogle() async {
+  try{
+    await _googleSignIn.signIn();
+    final result2 = await _googleSignIn.signIn();
+    final String _googleUserEmail = result2?.email ?? '';
+    final String _googleUserName = result2?.displayName ?? '';
+    final ggAuth = await result2?.authentication;
+    final idTokenSub = 'ggl_sns_$_googleUserEmail';
+    final accessToken = ggAuth?.accessToken;
+    print(accessToken);
+  }catch (e){
+    print('Error signing in $e');
+  }
+}
+
+
