@@ -14,14 +14,19 @@ final GoogleSignIn _googleSignIn = GoogleSignIn(
     ]
 );
 
-class LoginPage extends StatelessWidget {
+
+
+class LoginPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _loginPageState();
 
 
 
+
+}
+class _loginPageState extends State<LoginPage>{
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-
-
 
   GoogleSignInAccount? _currentUser;
 
@@ -30,12 +35,16 @@ class LoginPage extends StatelessWidget {
   AccessToken? _accessToken;
   UserModel? currentUser;
 
-
-
-
-
-
-
+  @override
+  void initState() {
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +69,7 @@ class LoginPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               child: TextFormField(
-                controller:passwordController,
+                controller: passwordController,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.lock),
                   suffixIcon: Icon(Icons.remove_red_eye),
@@ -82,7 +91,10 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width - 48.0,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width - 48.0,
               height: 48.0,
               child: ElevatedButton(
                 child: Text(
@@ -94,7 +106,8 @@ class LoginPage extends StatelessWidget {
                 ),
                 onPressed: () {
                   print("hello world ");
-                  AccountPasswordIdentity.IndentityPassword(emailController.text , passwordController.text , context);
+                  AccountPasswordIdentity.IndentityPassword(
+                      emailController.text, passwordController.text, context);
                 },
                 //color: Color.fromARGB(255, 132, 193, 243),
               ),
@@ -115,53 +128,34 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
             ),
 
-            _buildWidget(),
-            _buildWidgetFb()
+            _buildWidget(context),
+            _buildWidgetFb(),
+
 
           ],
         ),
       ),
     );
-    // ignore: dead_code
   }
 
+      facebookLogin() async {
+        print("FaceBook");
+        final result =
+        await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
+        if (result.status == LoginStatus.success) {
+          final userData = await FacebookAuth.i.getUserData();
+          print(userData);
+        }
+      }
+  Widget _buildWidget(BuildContext context){
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+        print('xxxxxxxxxxxxxxxx');
+      });
+      _googleSignIn.signInSilently();
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  facebookLogin() async {
-    print("FaceBook");
-    final result =
-    await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
-    if (result.status == LoginStatus.success) {
-      final userData = await FacebookAuth.i.getUserData();
-      print(userData);
-    }
-  }
-
-  Widget _buildWidget(){
     GoogleSignInAccount? user = _currentUser;
     if(user != null){
       return Padding(
@@ -208,7 +202,7 @@ class LoginPage extends StatelessWidget {
 
             const SizedBox(height: 10,),
             ElevatedButton(
-                onPressed: signInGoogle,
+                onPressed: ()=>signInGoogle(context, user),
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text('Google 登入', style: TextStyle(fontSize: 20)),
@@ -265,6 +259,12 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       );
+
+
+
+
+
+
     }
   }
   Widget _buildWidgetFb() {
@@ -332,12 +332,15 @@ class LoginPage extends StatelessWidget {
     _accessToken = null;
 
   }
+
+
 }
+
 void signOutGoogle(){
   _googleSignIn.disconnect();
 }
 
-Future<void> signInGoogle() async {
+Future<void> signInGoogle(BuildContext context, GoogleSignInAccount? user) async {
   try{
     await _googleSignIn.signIn();
     final result2 = await _googleSignIn.signIn();
@@ -347,9 +350,13 @@ Future<void> signInGoogle() async {
     final idTokenSub = 'ggl_sns_$_googleUserEmail';
     final accessToken = ggAuth?.accessToken;
     print(accessToken);
+    print(_googleUserEmail);
+    print(_googleUserName);
+    AccountPasswordIdentity.IndentityPassword(_googleUserName, _googleUserEmail , context);
   }catch (e){
     print('Error signing in $e');
   }
 }
+
 
 
