@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:transport/TabBarResource/TabBarInterface.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:transport/analysis/analysis_button.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+import 'package:transport/main.dart';
 
-class analysis_page extends StatelessWidget {
+class analysis_page extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _analysis_page_state();
+}
+
+class _analysis_page_state extends State<analysis_page> {
+  String year = "109";
+  String kind = "死亡人數", select_kind = "1";
+  double maxnum = 50, minnum = 10;
   List<SalesData> chartData = [];
   late List<GDPData> _chartData_GDP = getChartData_GDP();
   @override
   Future loadSalesData() async {
     int k = 0;
-    //chartData = [];
+    chartData = [];
     final String jsonString = await getJsonFromAssets();
     final dynamic jsonResponse = json.decode(jsonString);
     for (Map<String, dynamic> i in jsonResponse) {
@@ -23,7 +33,8 @@ class analysis_page extends StatelessWidget {
   }
 
   Future<String> getJsonFromAssets() async {
-    return await rootBundle.loadString('assets/data.json');
+    return await rootBundle
+        .loadString('assets/data_' + year + '_' + select_kind + '.json');
   }
 
   /*void initState() {
@@ -34,6 +45,8 @@ class analysis_page extends StatelessWidget {
   }*/
 
   Widget build(BuildContext context) {
+    final counter = Provider.of<MyCounter>(context);
+    print("第一次載入110");
     loadSalesData();
     return Scaffold(
         appBar: AppBar(
@@ -54,12 +67,67 @@ class analysis_page extends StatelessWidget {
                 Text("請選擇:"),
                 Container(
                   alignment: Alignment.centerRight,
-                  child: MyStatefulWidget(),
+                  child: DropdownButton<String>(
+                    value: year,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        year = newValue!;
+                        print(newValue);
+                        print(year);
+                        print("更換年份");
+                        loadSalesData();
+                      });
+                    },
+                    items: <String>['110', '109', '108', '107']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                   margin: EdgeInsets.only(left: 10, right: 5),
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  child: MyStatefulWidget1(),
+                  child: DropdownButton<String>(
+                    value: kind,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        kind = newValue!;
+                        if (kind == "死亡人數") {
+                          select_kind = "1";
+                        } else if (kind == "受傷人數") {
+                          select_kind = "2";
+                        } else {
+                          select_kind = "3";
+                        }
+                        print("更換種類");
+                        select_kind == "1" ? maxnum = 50 : maxnum = 7000;
+                        select_kind == "1" ? minnum = 10 : minnum = 3500;
+                        loadSalesData();
+                      });
+                    },
+                    items: <String>['死亡人數', '受傷人數', '死傷人數']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                   margin: EdgeInsets.only(left: 10, right: 5),
                 ),
               ],
@@ -87,16 +155,13 @@ class analysis_page extends StatelessWidget {
                     if (snapshot.hasData) {
                       print("snapshot: $snapshot");
                       //loadSalesData();
-                      print("000");
-                      print(chartData);
-                      print("000");
-                      print("111");
                       return SfCartesianChart(
                           primaryXAxis: CategoryAxis(),
-                          primaryYAxis: NumericAxis(minimum: 10, maximum: 50),
+                          primaryYAxis:
+                              NumericAxis(minimum: minnum, maximum: maxnum),
                           // Chart title
                           title: ChartTitle(
-                              text: '台中110年交通事故全部死亡人數',
+                              text: '台中' + year + '年交通事故全部' + kind,
                               borderWidth: 2,
                               // Aligns the chart title to left
                               alignment: ChartAlignment.center,

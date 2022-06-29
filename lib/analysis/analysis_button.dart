@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../main.dart';
 
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
@@ -8,7 +11,7 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  String dropdownValue = '110年';
+  String dropdownValue = '110';
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +26,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue = newValue!;
+          Provider.of<MyCounter>(context, listen: false)
+              .contorlyear(dropdownValue);
+          print(newValue);
+          print(dropdownValue);
+          print("更換年份");
         });
       },
-      items: <String>['110年', '109年', '108年', '107年']
+      items: <String>['110', '109', '108', '107']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
