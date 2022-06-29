@@ -322,6 +322,9 @@ class _loginPageState extends State<LoginPage>{
       UserModel model = UserModel.fromJson(data);
 
       currentUser = model;
+      setState(() {
+
+      });
 
     }
   }
@@ -330,6 +333,9 @@ class _loginPageState extends State<LoginPage>{
     await FacebookAuth.i.logOut();
     currentUser = null;
     _accessToken = null;
+    setState(() {
+
+    });
 
   }
 
