@@ -1,0 +1,53 @@
+[
+    {
+        "date": "1",
+        "value": 22
+    },
+    {
+        "date": "2",
+        "value": 15
+    },
+    {
+        "date": "3",
+        "value": 21
+    },
+    {
+        "date": "4",
+        "value": 20
+    },
+    {
+        "date": "5",
+        "value": 17
+    },
+    {
+        "date": "6",
+        "value": 19
+    },
+    {
+        "date": "7",
+        "value": 31
+    },
+    {
+        "date": "8",
+        "value": 17
+    },
+    {
+        "date": "9",
+        "value": 22
+    }
+    ,
+    {
+        "date": "10",
+        "value": 21
+    }
+    ,
+    {
+        "date": "11",
+        "value": 20
+    }
+    ,
+    {
+        "date": "12",
+        "value": 20
+    }
+]
