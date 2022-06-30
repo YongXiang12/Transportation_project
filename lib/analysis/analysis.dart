@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:transport/TabBarResource/TabBarInterface.dart';
@@ -9,6 +10,7 @@ import 'dart:convert';
 class analysis_page extends StatelessWidget {
   List<SalesData> chartData = [];
   late List<GDPData> _chartData_GDP = getChartData_GDP();
+
   @override
   Future loadSalesData() async {
     chartData = [];
@@ -30,6 +32,7 @@ class analysis_page extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           title: Text("analysis"),

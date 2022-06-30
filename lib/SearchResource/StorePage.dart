@@ -100,7 +100,7 @@ class _ItemList extends State<ItemList>{
       });
 
       void deleteData(String id) async {
-        var url = 'http://140.134.26.31:8080/PlaceData/delete/'+id;
+        var url = 'http://192.168.0.102:8080/PlaceData/delete/'+id;
         var response = await http.delete(Uri.parse(url));
 
         if (response.statusCode == 200) {

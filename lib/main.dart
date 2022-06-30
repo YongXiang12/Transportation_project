@@ -26,19 +26,22 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Myhome extends StatefulWidget {
+
+class  Myhome extends StatefulWidget{
   @override
   _Myhome createState() => _Myhome();
 }
 
 double value = 0;
 
+
 class _Myhome extends State<Myhome> {
-  int id = -1;
-  var list;
-  String email = "";
-  bool isLogin = false;
-  String status = "登入";
+  int id = -1 ;
+  var list ;
+  String email ="";
+  bool isLogin = false ;
+  String status ="登入";
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -141,6 +144,7 @@ class _Myhome extends State<Myhome> {
                         Icon(Icons.wrap_text, size: 30, color: Colors.white),
                     onTap: () {
                       //Navigator.pop(context);
+
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -178,6 +182,8 @@ class _Myhome extends State<Myhome> {
                 });
           }),
         ])));
+
+
   }
 
   void update() {

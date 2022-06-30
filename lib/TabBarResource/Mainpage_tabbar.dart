@@ -3,12 +3,14 @@ import 'package:transport/SearchResource/Searchpage.dart';
 import 'package:provider/provider.dart';
 import 'package:transport/main.dart';
 
+
 class Main_page_tabbar extends StatefulWidget {
   int User_id = -1;
   Main_page_tabbar({Key? key, this.User_id = -1}) : super(key: key);
 
   @override
   _Main_page_tabbar createState() => _Main_page_tabbar();
+
 }
 
 class Item {
@@ -16,22 +18,25 @@ class Item {
   final Icon icon;
 }
 
-class _Main_page_tabbar extends State<Main_page_tabbar> {
+
+class _Main_page_tabbar extends State<Main_page_tabbar>{
+
   int User_id = -1;
-  String Weather = "晴天";
+  late Icon default_icon = icon[0] ;
+
   List icon = [
-    const Item(Icon(
+    const Icon(
       Icons.wb_sunny_outlined,
       color: const Color(0xFF167F67),
-    )),
-    const Item(Icon(
+    ),
+    const Icon(
       Icons.wb_cloudy_outlined,
       color: const Color(0xFF167F67),
-    )),
-    const Item(Icon(
+    ),
+    const Icon(
       Icons.wb_sunny_outlined,
       color: const Color(0xFF167F67),
-    )),
+    ),
   ];
 
   @override
@@ -102,27 +107,65 @@ class _Main_page_tabbar extends State<Main_page_tabbar> {
           Container(
             width: 80,
             height: 40,
-            child: DropdownButton<String>(
+            child: DropdownButton<Icon>(
+
+              /*
                 underline: Container(height: 0),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
                 ),
-                value: Weather,
-                items: <String>['晴天', '雨天', '多雲']
+
+               */
+                value: default_icon,
+                items: icon.map((user){
+                    return DropdownMenuItem<Icon>(
+                        value: user,
+                        child:user,
+
+                    );
+                }).toList(),
+
+
+                onChanged: (value){
+                  print(value.runtimeType);
+                  setState(() {
+                    default_icon = value! ;
+                  });
+                },
+                ),
+          )
+        ],
+        /*
+        new List.generate(3, (int index){
+
+                  return new DropdownMenuItem(
+                    child: new Container(
+                      padding : const EdgeInsets.only(bottom: 5.0),
+                      height :100.0,
+                      child : new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          icon[0],
+                        ],
+                      ),
+                    ),
+
+                  );
+                }
+         */
+
+
+        /*
+         <String>['晴天', '雨天', '多雲']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
-                }).toList(),
-                onChanged: (newWeather) {
-                  setState(() {
-                    Weather = newWeather!;
-                  });
-                }),
-          )
-        ],
+                }).toList()
+
+         */
 
         // TabBar design
         bottom: TabBar(tabs: [

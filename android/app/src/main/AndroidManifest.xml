@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.transport">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="transport"
         android:name="${applicationName}"
@@ -9,6 +11,7 @@
            android:value="AIzaSyAvKEY3UUeu3l4JjfHEouBdN6CScdoC68s"/>
         <activity
             android:name=".MainActivity"
+            android:usesCleartextTraffic="true"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"

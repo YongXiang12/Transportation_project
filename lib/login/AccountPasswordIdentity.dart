@@ -11,6 +11,7 @@ class AccountPasswordIdentity {
   static IndentityPassword(String email, String password,
       BuildContext context) async {
     print("hello http");
+    print("world");
     var url = 'http://140.134.26.31:8080/User/'+ email;
     var response = await http.get(Uri.parse(url));
     var data = json.decode(utf8.decode(response.bodyBytes));
@@ -18,7 +19,7 @@ class AccountPasswordIdentity {
     if (response.statusCode == 200) {
       print("success");
       print(data[0]['password'].toString() + " " + password);
-      if (data[0]['password'].toString().toString().compareTo(password) == 0) {
+      if (data[0]['password'].toString().compareTo(password) == 0) {
 
         Navigator.pop(context , [data[0]['id'],data[0]['email']]);
       } else {
@@ -26,6 +27,7 @@ class AccountPasswordIdentity {
       }
       //return Future<bool>.value(true);;
     } else {
+      print("Hello "+data[0]['password'].toString() + " " + password);
       print("false");
       return Future<bool>.value(false);;
     }

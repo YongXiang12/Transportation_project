@@ -12,7 +12,6 @@ class GoogleMapChangeNotify with ChangeNotifier{
     result =   await placeService.getAutocomplete(search);
     notifyListeners();
     //return result;
-
   }
 
 
