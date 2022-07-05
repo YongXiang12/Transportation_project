@@ -1,3 +1,4 @@
+//@dart=2.12
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:transport/TabBarResource/Mainpage_tabbar.dart';
@@ -6,6 +7,8 @@ import 'package:transport/TabBarResource/TabBarInterface.dart';
 import 'package:transport/analysis/analysis.dart';
 import 'package:transport/login/logins.dart';
 import 'dart:math';
+
+import 'package:transport/setting/setting.dart';
 
 void main() => runApp(const MyApp());
 
@@ -20,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider.value(value: MyCounter(0))],
+      providers: [ChangeNotifierProvider.value(value: MyCounter(0, "107"))],
       child: MaterialApp(home: Myhome()),
     );
   }
@@ -129,10 +132,10 @@ class _Myhome extends State<Myhome> {
                     ),
                     leading: Icon(Icons.add, size: 30, color: Colors.white),
                     onTap: () {
-                      // Update the state of the app
-                      // ...
-                      // Then close the drawer
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => setting_page()));
                     },
                   ),
                   ListTile(
@@ -202,12 +205,21 @@ class _Myhome extends State<Myhome> {
 
 class MyCounter extends ChangeNotifier {
   double _count;
-
+  String _year = "110";
   get count => _count;
-  MyCounter(this._count);
+  get year => _year;
+  MyCounter(this._count, this._year);
   contorldrawer() {
     _count == 0 ? _count = 1 : _count = 0;
     print(_count);
     notifyListeners();
   }
+
+  contorlyear(String newyear) {
+    _year = newyear;
+    print(_year + "12312313");
+    notifyListeners();
+  }
+
+  static of(BuildContext context) {}
 }
