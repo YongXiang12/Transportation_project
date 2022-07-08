@@ -7,7 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http ;
-import 'package:transport/ VoiceBroadcast/VoiceBroadcast.dart';
+
+import '../VoiceBroadcast/VoiceBroadcast.dart';
 
 class Map extends StatefulWidget {
   const Map({Key? key}) : super(key: key);
@@ -87,6 +88,7 @@ class _Map extends State<Map> {
       markerId: MarkerId("User_GPS"),
       position: _center,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+      draggable: true,
     );
 
 
