@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:transport/setting/sound_page.dart';
+
+import 'sound_page.dart';
 
 class sound_page extends StatefulWidget {
   @override
@@ -99,6 +102,20 @@ class sound_page_state extends State<sound_page> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                child: Text("爭搶道行駛語音",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    )),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
                               RadioListTile<int>(
                                 title: Text("預設音檔"),
                                 value: 1,
@@ -113,6 +130,42 @@ class sound_page_state extends State<sound_page> {
                                 groupValue: groupValue[0],
                                 onChanged: (value) =>
                                     state(() => groupValue[0] = 2),
+                                secondary: OutlinedButton(
+                                  child: Text("錄音"),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                record_page()));
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("取消"),
+                                    ),
+                                    width: 80,
+                                  ),
+                                  SizedBox(
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("確定"),
+                                    ),
+                                    width: 80,
+                                  ),
+                                ],
+                                mainAxisAlignment: MainAxisAlignment.end,
                               ),
                             ],
                           ),
