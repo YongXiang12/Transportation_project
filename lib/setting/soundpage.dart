@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:transport/setting/sound_page.dart';
-
-import 'sound_page.dart';
+import 'package:transport/setting/record.dart';
 
 class sound_page extends StatefulWidget {
   @override

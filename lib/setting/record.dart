@@ -52,7 +52,7 @@ class record_page_state extends State<record_page> {
 
   Future stop() async {
     await recorder.stopRecorder();
-    play(); //想一停止錄音直接播放
+    //play(); //想一停止錄音直接播放
   }
 
   Future play() async {
@@ -98,6 +98,18 @@ class record_page_state extends State<record_page> {
                 }
                 setState(() {});
               }),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+              child: Icon(
+                Icons.play_arrow,
+                size: 80,
+              ),
+              onPressed: () async {
+                await play();
+                setState(() {});
+              })
         ],
       )));
 }
