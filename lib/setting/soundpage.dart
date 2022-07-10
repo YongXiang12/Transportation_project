@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-class sound_page extends StatelessWidget {
+class sound_page extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => sound_page_state();
+}
+
+class sound_page_state extends State<sound_page> {
+  List<int> groupValue = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -87,42 +93,31 @@ class sound_page extends StatelessWidget {
               onTap: () {
                 showDialog(
                     context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                          title: Text("爭搶道行駛"),
-                          children: <Widget>[
-                            SimpleDialogOption(
-                              onPressed: () {
-                                /*showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return SimpleDialog(
-                                        title: Text("音檔設定"),
-                                        children: <Widget>[
-                                          SimpleDialogOption()
-                                        ]);
-                                  });*/
-                                // 返回1
-                                Navigator.pop(context);
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 6),
-                                child: const Text('預設音檔'),
+                    builder: (context) {
+                      return StatefulBuilder(builder: (context, state) {
+                        return Dialog(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              RadioListTile<int>(
+                                title: Text("預設音檔"),
+                                value: 1,
+                                groupValue: groupValue[0],
+                                onChanged: (value) =>
+                                    //groupValue[0] = value!;
+                                    state(() => groupValue[0] = 1),
                               ),
-                            ),
-                            SimpleDialogOption(
-                              onPressed: () {
-                                // 返回2
-                                Navigator.pop(context);
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 6),
-                                child: const Text('自訂'),
+                              RadioListTile<int>(
+                                title: Text("自訂音檔"),
+                                value: 2,
+                                groupValue: groupValue[0],
+                                onChanged: (value) =>
+                                    state(() => groupValue[0] = 2),
                               ),
-                            ),
-                          ]);
+                            ],
+                          ),
+                        );
+                      });
                     });
               },
               child: Row(
