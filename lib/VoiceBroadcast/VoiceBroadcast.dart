@@ -1,6 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 
 class VoiceBroadcast{
+
+
+
+
 
     static String file_path = "test.mp3";
    // static FlutterSound sound = new FlutterSound();
@@ -10,8 +17,14 @@ class VoiceBroadcast{
 
 
     static Future<void> play() async {
-      AudioCache cache = new AudioCache(fixedPlayer: player);
+
+
+
+
+
+      AudioCache cache = AudioCache();
       print("hello sound");
+
       var res = cache.play(file_path);
 
       if(res == 1 ){

@@ -6,7 +6,8 @@ class UserSelectEntity{
 
   const UserSelectEntity({
 
-
+    String id  ; // 1 ~ 18
+    bool default_select  ;
   });
 
 

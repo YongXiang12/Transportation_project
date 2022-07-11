@@ -38,8 +38,6 @@ class _Searchpage extends State<Searchpage>{
     );
 
 
-
-
   }
 
 }

@@ -1,4 +1,3 @@
-
 class UserEntity{
 
     final int id ;
@@ -8,7 +7,6 @@ class UserEntity{
 
 
     const UserEntity({
-
         required this.id ,
         required this.audioPath ,
         required this.audioIndentity ,

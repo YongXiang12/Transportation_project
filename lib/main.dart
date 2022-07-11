@@ -45,6 +45,31 @@ class _Myhome extends State<Myhome> {
   bool isLogin = false ;
   String status ="登入";
 
+
+  late Map CarMap ;
+  late Map BikeMap  ;
+  late Map HumanMap   ;
+
+
+  late Main_page_tabbar tab ;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    CarMap = new Map(t: "B");
+    BikeMap = new Map(t: "C");
+    HumanMap = new Map(t: "H");
+
+    List<Map> maps = [CarMap , BikeMap , HumanMap];
+
+    tab = Main_page_tabbar(User_id : id , maps: maps/*CarMap: this.CarMap , BikeMap: BikeMap, HumanMap: HumanMap*/,) ;
+    CarMap.setAppBar(tab);
+    BikeMap.setAppBar(tab);
+    HumanMap.setAppBar(tab);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -175,11 +200,16 @@ class _Myhome extends State<Myhome> {
                       ..setEntry(0, 3, 200 * val)
                       ..rotateY((pi / 6) * val),
                     child: Scaffold(
-                      appBar: Tabbar_interface(
+                      appBar: tab
+                      /*
+                      Tabbar_interface(
                         pageType: 0,
                         User_id: id,
+                      )*/,
+                      body: TabBarView(
+                          children: <Widget>[Map(t: "B"),Map(t: "C" ),Map(t: "H")],
+                          physics: new NeverScrollableScrollPhysics(),
                       ),
-                      body: Map(),
                     ),
                   ));
                 });

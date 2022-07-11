@@ -15,6 +15,9 @@ class Search_tabbar extends StatefulWidget{
   @override
   _Search_tabbar createState() => _Search_tabbar();
 
+  @override
+  Size get preferredSize => const Size.fromHeight(100);
+
 }
 
 int SelectType = 0 ;
@@ -30,7 +33,7 @@ class _Search_tabbar extends State<Search_tabbar>{
 
 
         leading: IconButton(icon:Icon(Icons.arrow_back,size:40),
-          onPressed: () {
+        onPressed: () {
             Navigator.pop(context);
           },
         ),
@@ -43,7 +46,7 @@ class _Search_tabbar extends State<Search_tabbar>{
 
         bottom: TabBar(
             tabs: [Tab(icon : Icon(Icons.search)),
-              Tab(icon : Icon(Icons.archive)),
+                   Tab(icon : Icon(Icons.archive)),
             ]
         )
     );

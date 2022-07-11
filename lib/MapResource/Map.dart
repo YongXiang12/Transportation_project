@@ -1,24 +1,56 @@
 import 'dart:async';
+import 'dart:collection';
+import 'dart:convert' as convert;
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http ;
-
+import 'package:transport/TabBarResource/Mainpage_tabbar.dart';
+import '../TabBarResource/Mainpage_tabbar.dart';
 import '../VoiceBroadcast/VoiceBroadcast.dart';
 
+late Main_page_tabbar tab ;
+
 class Map extends StatefulWidget {
-  const Map({Key? key}) : super(key: key);
+
+
+  String t = "" ;
+
+  Map({Key?  key ,  this.t =""}) : super(key: key);
+
 
   @override
-  _Map createState() => _Map();
+  _Map createState() => temp = _Map(t);
+
+  void setAppBar(Main_page_tabbar bar){
+    tab = bar ;
+  }
+
+  void reset(){
+    temp.reset_Map();
+  }
 }
 
+late _Map temp  ;
 
 class _Map extends State<Map> {
+  late String type ;
+ // late Main_page_tabbar tab ;
+  late Map m ;
+  late String name = "" ;
+
+  _Map(String t){
+    print("hello world");
+    type = t ;
+    tab.setMap(t);
+    //tab = tabbar ;
+    //m = m ;
+    print("end world");
+  }
+
 
   late GoogleMapController mapController;
   late Position position ;
@@ -28,7 +60,8 @@ class _Map extends State<Map> {
   var get = false ;
   // 偵測標點
   Future<void> RadarSearch(double latitude , double logitude) async{
-    var url = 'http://10.0.2.2:8080/Radar/'+latitude.toString()+'/'+logitude.toString();
+    print("hello radar");
+    var url = 'http://140.134.26.31:8080/Radar/'+latitude.toString()+'/'+logitude.toString();
     var response = await http.get(Uri.parse(url));
     var newData ;
 
@@ -42,23 +75,59 @@ class _Map extends State<Map> {
           VoiceBroadcast.play();
           get = true;
         }else{
+          print("fail");
           get = false ;
         }
+    }else{
+      print("");
     }
     //return newData ;
   }
 
   Future<void> getWholeLocation() async {
-    var url = 'http://10.0.2.2:8080/WholeData/Location';
+
+    var url = 'http://140.134.26.31:8080/WholeData/Location/'+type+"/"+tab.getWeatherType().toString();
     var response = await http.get(Uri.parse(url));
     print("locaaaaaaaaaaaaaaaaaaaa");
     if(response.statusCode == 200){
       locations = json.decode(utf8.decode(response.bodyBytes));
+      setAllRouteName();
     }
+
+
+  setState(() {
+
+  });
+
+  }
+
+  HashMap<String , String> route_names = new HashMap() ;
+  String key = "AIzaSyAvKEY3UUeu3l4JjfHEouBdN6CScdoC68s";
+  //componets=contry:TW
+  Future<void> getRouteName(double latitude , double longitude , int id) async{
+    var url = Uri.parse("https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude.toString()+","+longitude.toString()+"&language=zh-TW&key="+key);
+    var response = await http.get(url);
+    https://maps.googleapis.com/maps/api/geocode/json?latlng=24.182 ,120.651805&language=zh-TW&key=AIzaSyAvKEY3UUeu3l4JjfHEouBdN6CScdoC68s
+    var json = convert.jsonDecode(response.body);
+    //print("NNNNNNNNNNNNNNNNNN"+json['results'][0]['formatted_address']);
+    name = json['results'][0]['formatted_address'] ;
+    route_names[id.toString()] = name;
+    //print(id.toString()+"NNNNNNNNNNNNNNNNNN"+name+" "+route_names[id.toString()].toString());
+
 
   }
 
 
+  void setAllRouteName(){
+
+    for(var location in locations){
+      getRouteName(location['gps_latitude'], location['gps_longitude'] , location['id']);
+
+      print(location['id'].toString() +" name "+name);
+    }
+
+
+  }
 
 
   void _onMapCreated(GoogleMapController controller) {
@@ -69,6 +138,7 @@ class _Map extends State<Map> {
   @override
   void initState() {
     // TODO: implement initState
+    print("init");
     super.initState();
     getWholeLocation();
     getCurrentPosition() ;
@@ -78,10 +148,13 @@ class _Map extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
+
+    //tab.setMap(m);
+
     //print("hello wrold");
 
     // marker add
-
+    print("typeptpepepepepepepepep"+tab.getWeatherType().toString());
     List<Marker> markers = [] ;
 
     final Marker marker = Marker(
@@ -89,6 +162,14 @@ class _Map extends State<Map> {
       position: _center,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
       draggable: true,
+      onDragEnd: ((newPosition) {
+        print(newPosition.latitude);
+        print(newPosition.longitude);
+        RadarSearch(newPosition.latitude, newPosition.longitude);
+        print("end");
+      }),
+
+
     );
 
 
@@ -99,33 +180,40 @@ class _Map extends State<Map> {
       //icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
     );
 
+    int count = 0 ;
     markers.add(test);
     markers.add(marker);
     if(locations != null) {
       for (var location in locations) {
-        markers.add(
-            Marker(
-              markerId: MarkerId(location['id'].toString()),
-              position: LatLng(
-                  location['gps_latitude'], location['gps_longitude']),
+        String id = location['id'].toString() ;
 
-              infoWindow: InfoWindow(
-                title: '台中市西屯區文華路100號',
-                snippet: "危險程度 高",
-              ),
+        //(location['gps_latitude'], location['gps_longitude']);
+        Marker route  =   Marker(
+          markerId: MarkerId(count.toString()),
+          position: LatLng(
+              location['gps_latitude'], location['gps_longitude']),
 
-              onTap: () {
-                showBottomSheet(
-                  context: context,
-                  builder: (builder) {
-                    return Container(
-                      child: _showMoreDetail(),
-                    );
-                  },
+          infoWindow: InfoWindow(
+            title: route_names[id],
+            snippet: "危險程度 高",
+          ),
+
+          onTap: () {
+            showBottomSheet(
+              context: context,
+              builder: (builder) {
+
+                print("hello location"+(route_names[id].toString())+" "+id+" "+route_names.length.toString());
+                return Container(
+                  child: _showMoreDetail(location['main_cause'] ,  route_names[id].toString() ),
                 );
               },
-            )
+            );
+          },
         );
+        markers.add(route
+        );
+        count++ ;
       }
     }
 
@@ -157,8 +245,8 @@ class _Map extends State<Map> {
 
   }
 
-  DefaultTabController _showMoreDetail() {
-
+  DefaultTabController _showMoreDetail(String cause, String name) {
+      print("show "+name);
       return
         DefaultTabController(
           length: 2,
@@ -179,7 +267,7 @@ class _Map extends State<Map> {
 
           ),
 
-          Text(" 台中市西屯區文華路100號",
+          Text(name,
             style: TextStyle(
               fontSize: 30 ,
               fontWeight: FontWeight.bold,
@@ -207,7 +295,7 @@ class _Map extends State<Map> {
           Container(
               padding: EdgeInsets.only(top :20 , bottom : 20),
               child : Text(
-                " 事發原因: 機車竄出    今年事發次數 : 10次",
+                " 事發原因: "+cause,
                 style: TextStyle(
                     fontSize: 20
                 ),
@@ -230,8 +318,10 @@ class _Map extends State<Map> {
       distanceFilter: 10,
     );
     Geolocator.getPositionStream(locationSettings : locationSettings).listen((Position position) {
+      print("helloGGGGGG");
       setState(() {
         _center = LatLng(position.latitude, position.longitude);
+        print("hello");
         //print(position.latitude.toString()+" "+position.longitude.toString());
         RadarSearch(position.latitude, position.longitude);
         //transferPositionToAddress(position.latitude ,position.longitude);
@@ -246,6 +336,12 @@ class _Map extends State<Map> {
     local = p[0].locality.toString();
     //print("loacl "+local);
     print(p[0].locality.toString());
+  }
+
+  void reset_Map(){
+    setState(() {
+      getWholeLocation();
+    });
   }
 
 }

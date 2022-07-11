@@ -89,11 +89,14 @@ Future<List<UserEntity>> getAudios() async{
 
 // get the User Select Data  ;
 
+/*
 Future<List<UserSelectEntity>> getUserSelectEntity(){
 
   // TODO
 
 }
+
+*/
 
 // write the data into AudioData
 
@@ -107,6 +110,8 @@ Future<void> insertAudioData(UserEntity entity) async{
   );
 
 }
+
+/*
   //TODO
   // write the User Select Data into DataBase
   Future<void> insertUserSelectData(UserSelectEntity entity) async{
@@ -119,7 +124,7 @@ Future<void> insertAudioData(UserEntity entity) async{
     );
 
   }
-
+*/
 
   Future<void> deleteAudioData(String filename) async{
     final Database db = await getAudioDBConnect();
