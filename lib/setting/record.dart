@@ -7,6 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class record_page extends StatefulWidget {
+  record_page({Key? key, required this.data}) : super(key: key);
+  final String data;
   @override
   State<record_page> createState() => record_page_state();
 }
@@ -14,7 +16,7 @@ class record_page extends StatefulWidget {
 class record_page_state extends State<record_page> {
   final recorder = FlutterSoundRecorder();
   final playmodule = FlutterSoundPlayer();
-  static String file_path = "audio";
+  static String file_path = "audio_";
 
   @override
   void initState() {
@@ -47,16 +49,18 @@ class record_page_state extends State<record_page> {
 
   // This widget is the root of your application.
   Future record() async {
-    await recorder.startRecorder(toFile: file_path);
+    await recorder.startRecorder(toFile: file_path + "${widget.data}");
   }
 
   Future stop() async {
-    await recorder.stopRecorder();
+    final path = await recorder.stopRecorder();
+    print(File(path!));
+    print("567");
     //play(); //想一停止錄音直接播放
   }
 
   Future play() async {
-    await playmodule.startPlayer(fromURI: file_path);
+    await playmodule.startPlayer(fromURI: file_path + "${widget.data}");
   }
 
   @override
