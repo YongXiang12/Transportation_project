@@ -42,12 +42,12 @@ class _Myhome extends State<Myhome> {
   String email = "";
   bool isLogin = false;
   String status = "登入";
-
+  String User_name = "";
 
   late Map CarMap ;
   late Map BikeMap  ;
   late Map HumanMap   ;
-
+  late List<Map> maps ;
 
   late Main_page_tabbar tab ;
 
@@ -58,7 +58,7 @@ class _Myhome extends State<Myhome> {
     BikeMap = new Map(t: "C");
     HumanMap = new Map(t: "H");
 
-    List<Map> maps = [CarMap , BikeMap , HumanMap];
+    maps = [CarMap , BikeMap , HumanMap];
 
     tab = Main_page_tabbar(User_id : id , maps: maps/*CarMap: this.CarMap , BikeMap: BikeMap, HumanMap: HumanMap*/,) ;
     CarMap.setAppBar(tab);
@@ -102,7 +102,7 @@ class _Myhome extends State<Myhome> {
                               "https://i.pinimg.com/originals/1d/90/00/1d9000c7502195316846ff6b02e3f51c.png"),
                         ),
                         SizedBox(height: 10.0),
-                        Text("張詠翔",
+                        Text(User_name,
                             style:
                                 TextStyle(color: Colors.white, fontSize: 15)),
                       ],
@@ -221,10 +221,18 @@ class _Myhome extends State<Myhome> {
       print(list);
       email = list[1];
       id = list[0];
+      print(id.toString());
       isLogin = !isLogin;
       if (isLogin) {
         status = "登出";
       }
+      User_name = "張詠翔";
+      tab = Main_page_tabbar(User_id : id , maps: maps/*CarMap: this.CarMap , BikeMap: BikeMap, HumanMap: HumanMap*/,) ;
+      CarMap.setAppBar(tab);
+      BikeMap.setAppBar(tab);
+      HumanMap.setAppBar(tab);
+
+
     });
   }
 }
