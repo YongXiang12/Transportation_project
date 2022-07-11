@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:transport/DB_Sqlite/UserEntity.dart';
+import 'package:transport/DB_Sqlite/controller.dart';
 import 'package:transport/setting/record.dart';
 
 class sound_page extends StatefulWidget {
@@ -8,6 +10,8 @@ class sound_page extends StatefulWidget {
 
 class sound_page_state extends State<sound_page> {
   List<int> groupValue = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  Controller controller = new Controller();
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -73,6 +77,12 @@ class sound_page_state extends State<sound_page> {
                                 secondary: OutlinedButton(
                                   child: Text("錄音"),
                                   onPressed: () {
+                                    controller.createAudioContentDB();
+                                    UserEntity userentity = new UserEntity(
+                                        id: 10,
+                                        audioPath: "audio_" + "2",
+                                        audioIndentity: "2",
+                                        fileName: "audio_" + "2");
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

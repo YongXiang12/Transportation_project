@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:transport/DB_Sqlite/UserEntity.dart';
 
 class record_page extends StatefulWidget {
   record_page({Key? key, required this.data}) : super(key: key);
@@ -54,6 +55,7 @@ class record_page_state extends State<record_page> {
 
   Future stop() async {
     final path = await recorder.stopRecorder();
+
     print(File(path!));
     print("567");
     //play(); //想一停止錄音直接播放
@@ -97,6 +99,11 @@ class record_page_state extends State<record_page> {
               onPressed: () async {
                 if (recorder.isRecording) {
                   await stop();
+                  UserEntity userentity = new UserEntity(
+                      id: 10,
+                      audioPath: file_path + "${widget.data}",
+                      audioIndentity: "${widget.data}",
+                      fileName: file_path + "${widget.data}");
                 } else {
                   await record();
                 }
