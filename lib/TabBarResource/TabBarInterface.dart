@@ -25,7 +25,7 @@ class _Tabbar_interface extends State<Tabbar_interface>{
 
     switch(widget.pageType){
       case 0 :
-          return Main_page_tabbar(User_id : widget.User_id);
+         // return Main_page_tabbar(User_id : widget.User_id);
       case 1 :
           return Search_tabbar();
       default :

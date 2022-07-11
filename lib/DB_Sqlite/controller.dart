@@ -72,25 +72,34 @@ class Controller {
 
 // get the User Select Data  ;
 
-/*Future<List<UserSelectEntity>> getUserSelectEntity(){
+
+
+/*
+
+Future<List<UserSelectEntity>> getUserSelectEntity(){
 
   // TODO
 
-}*/
+}
+*/
 
 // write the data into AudioData
-
   Future<void> insertAudioData(UserEntity entity) async {
     final Database db = await getAudioDBConnect();
     await db.insert(
       'audio',
       entity.toMapping(),
       conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-  //TODO
+  );
+
+}
+
+
+
   // write the User Select Data into DataBase
-  /*Future<void> insertUserSelectData(UserSelectEntity entity) async{
+  /*
+  Future<void> insertUserSelectData(UserSelectEntity entity) async{
+
 
     final Database db = await getUserSelectDBConnect();
     await db.insert(
@@ -98,8 +107,8 @@ class Controller {
       entity.toMapping(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-
-  }*/
+  }
+*/
 
   Future<void> deleteAudioData(String filename) async {
     final Database db = await getAudioDBConnect();

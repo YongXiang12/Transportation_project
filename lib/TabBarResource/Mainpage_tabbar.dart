@@ -2,16 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:transport/SearchResource/Searchpage.dart';
 import 'package:provider/provider.dart';
 import 'package:transport/main.dart';
+import 'package:transport/MapResource/Map.dart';
 
+late Map currMap ;
+int weather_type = 8 ;
 
-class Main_page_tabbar extends StatefulWidget {
+class Main_page_tabbar extends StatefulWidget implements PreferredSizeWidget {
+
   int User_id = -1;
-  Main_page_tabbar({Key? key, this.User_id = -1}) : super(key: key);
+ // late Map CarMap ;
+ // late Map BikeMap  ;
+ // late Map HumanMap   ;
+
+  List<Map> maps = [] ;
+
+  Main_page_tabbar({Key? key, this.User_id = -1 , required this.maps/*required this.CarMap , required this.BikeMap , required this.HumanMap*/}) : super(key: key);
+
+  late _Main_page_tabbar temp ;
 
   @override
-  _Main_page_tabbar createState() => _Main_page_tabbar();
+  _Main_page_tabbar createState() =>  temp = _Main_page_tabbar();
+
+
+
+  void setMap(String t){
+
+    if(t == "B"){
+      currMap = maps[0] ;
+      print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+    }else if(t == "C"){
+      currMap = maps[1] ;
+      print("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+    }else if(t == "H"){
+      currMap = maps[2] ;
+      print("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+    }
+
+  }
+
+  int getWeatherType(){
+    return weather_type ;
+  }
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size.fromHeight(100);
 
 }
+
+
 
 class Item {
   const Item(this.icon);
@@ -21,6 +59,7 @@ class Item {
 
 class _Main_page_tabbar extends State<Main_page_tabbar>{
 
+  late Map map ;
   int User_id = -1;
   late Icon default_icon = icon[0] ;
 
@@ -34,7 +73,7 @@ class _Main_page_tabbar extends State<Main_page_tabbar>{
       color: const Color(0xFF167F67),
     ),
     const Icon(
-      Icons.wb_sunny_outlined,
+      Icons.wb_cloudy,
       color: const Color(0xFF167F67),
     ),
   ];
@@ -130,42 +169,22 @@ class _Main_page_tabbar extends State<Main_page_tabbar>{
                 onChanged: (value){
                   print(value.runtimeType);
                   setState(() {
+
                     default_icon = value! ;
+
+                    if(default_icon == icon[0]){
+                      weather_type = 8 ;
+                    }else if(default_icon == icon[1]){
+                      weather_type = 7 ;
+                    }else if(default_icon == icon[2]){
+                      weather_type = 6 ;
+                    }
+                    currMap.reset();
                   });
                 },
                 ),
           )
         ],
-        /*
-        new List.generate(3, (int index){
-
-                  return new DropdownMenuItem(
-                    child: new Container(
-                      padding : const EdgeInsets.only(bottom: 5.0),
-                      height :100.0,
-                      child : new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          icon[0],
-                        ],
-                      ),
-                    ),
-
-                  );
-                }
-         */
-
-
-        /*
-         <String>['晴天', '雨天', '多雲']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList()
-
-         */
 
         // TabBar design
         bottom: TabBar(tabs: [
@@ -174,4 +193,10 @@ class _Main_page_tabbar extends State<Main_page_tabbar>{
           Tab(icon: Icon(Icons.directions_run)),
         ]));
   }
+
+  void setMap(Map m ){
+    print("iiiiiiiiiiiiiiiiiiiiiiii");
+    map = m;
+  }
+
 }
