@@ -1,4 +1,4 @@
-class UserSelectEntity{
+/*class UserSelectEntity{
 
   final String t1 ;
 
@@ -11,4 +11,4 @@ class UserSelectEntity{
   });
 
 
-}
+}*/

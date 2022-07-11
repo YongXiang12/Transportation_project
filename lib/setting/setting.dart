@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:transport/DB_Sqlite/controller.dart';
 import 'package:transport/setting/soundpage.dart';
 
 class setting_page extends StatelessWidget {
+  //Controller controller = new Controller();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -29,21 +29,19 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-
-class  Myhome extends StatefulWidget{
+class Myhome extends StatefulWidget {
   @override
   _Myhome createState() => _Myhome();
 }
 
 double value = 0;
 
-
 class _Myhome extends State<Myhome> {
-  int id = -1 ;
-  var list ;
-  String email ="";
-  bool isLogin = false ;
-  String status ="登入";
+  int id = -1;
+  var list;
+  String email = "";
+  bool isLogin = false;
+  String status = "登入";
 
 
   late Map CarMap ;
@@ -106,7 +104,7 @@ class _Myhome extends State<Myhome> {
                         SizedBox(height: 10.0),
                         Text("張詠翔",
                             style:
-                                TextStyle(color: Colors.white, fontSize: 18)),
+                                TextStyle(color: Colors.white, fontSize: 15)),
                       ],
                     ),
                   ),
@@ -215,8 +213,6 @@ class _Myhome extends State<Myhome> {
                 });
           }),
         ])));
-
-
   }
 
   void update() {
