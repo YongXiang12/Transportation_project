@@ -1,0 +1,22 @@
+${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
+${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework
+${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework
+${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework
+${BUILT_PRODUCTS_DIR}/GoogleSignIn/GoogleSignIn.framework
+${BUILT_PRODUCTS_DIR}/audio_session/audio_session.framework
+${BUILT_PRODUCTS_DIR}/audioplayers/audioplayers.framework
+${BUILT_PRODUCTS_DIR}/flutter_facebook_auth/flutter_facebook_auth.framework
+${BUILT_PRODUCTS_DIR}/flutter_sound_core/flutter_sound_core.framework
+${BUILT_PRODUCTS_DIR}/geocoding/geocoding.framework
+${BUILT_PRODUCTS_DIR}/geolocator_apple/geolocator_apple.framework
+${BUILT_PRODUCTS_DIR}/location/location.framework
+${BUILT_PRODUCTS_DIR}/package_info_plus/package_info_plus.framework
+${BUILT_PRODUCTS_DIR}/path_provider_ios/path_provider_ios.framework
+${BUILT_PRODUCTS_DIR}/shared_preferences_ios/shared_preferences_ios.framework
+${BUILT_PRODUCTS_DIR}/sign_in_with_apple/sign_in_with_apple.framework
+${BUILT_PRODUCTS_DIR}/sqflite/sqflite.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/FBAEMKit/FBAEMKit.framework/FBAEMKit
+${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework/FBSDKCoreKit
+${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKCoreKit_Basics/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics
+${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework/FBSDKLoginKit

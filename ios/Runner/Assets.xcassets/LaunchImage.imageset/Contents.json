@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "截屏2022-08-19 17.26.57.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "截屏2022-08-19 17.26.57 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "截屏2022-08-19 17.26.57 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
