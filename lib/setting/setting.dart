@@ -70,7 +70,7 @@ class setting_page extends StatelessWidget {
                           ],
                         ),
                         actions: [
-                          FlatButton(
+                          TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
@@ -111,7 +111,7 @@ class setting_page extends StatelessWidget {
                           ],
                         ),
                         actions: [
-                          FlatButton(
+                          TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },

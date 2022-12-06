@@ -299,7 +299,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -320,17 +320,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -400,7 +402,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -421,17 +423,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -501,7 +505,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -522,17 +526,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -602,7 +608,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -623,17 +629,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -703,7 +711,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -724,17 +732,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -804,7 +814,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -825,17 +835,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -905,7 +917,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -926,17 +938,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1006,7 +1020,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1027,17 +1041,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1107,7 +1123,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1128,17 +1144,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                   backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1209,7 +1227,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1230,17 +1248,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1311,7 +1331,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1332,17 +1352,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1413,7 +1435,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1434,17 +1456,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                      backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1515,7 +1539,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1536,17 +1560,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1617,7 +1643,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1638,17 +1664,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                      backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1719,7 +1747,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1740,17 +1768,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                      backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1821,7 +1851,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1842,17 +1872,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                      backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
@@ -1923,7 +1955,7 @@ class sound_page_state extends State<sound_page> {
                                 SizedBox(
                                   width: double.infinity,
                                   height: 60,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -1944,17 +1976,19 @@ class sound_page_state extends State<sound_page> {
                                         color: Colors.green,
                                       ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    color: Colors.white,
+                                      backgroundColor: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Row(
                                   children: [
                                     SizedBox(
-                                      child: FlatButton(
+                                      child: TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
