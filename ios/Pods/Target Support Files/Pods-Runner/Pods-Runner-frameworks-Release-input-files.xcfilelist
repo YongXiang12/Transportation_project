@@ -7,6 +7,7 @@ ${BUILT_PRODUCTS_DIR}/GoogleSignIn/GoogleSignIn.framework
 ${BUILT_PRODUCTS_DIR}/audio_session/audio_session.framework
 ${BUILT_PRODUCTS_DIR}/audioplayers/audioplayers.framework
 ${BUILT_PRODUCTS_DIR}/flutter_facebook_auth/flutter_facebook_auth.framework
+${BUILT_PRODUCTS_DIR}/flutter_secure_storage/flutter_secure_storage.framework
 ${BUILT_PRODUCTS_DIR}/flutter_sound_core/flutter_sound_core.framework
 ${BUILT_PRODUCTS_DIR}/geocoding/geocoding.framework
 ${BUILT_PRODUCTS_DIR}/geolocator_apple/geolocator_apple.framework
